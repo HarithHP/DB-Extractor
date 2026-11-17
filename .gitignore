@@ -1,0 +1,19 @@
+node_modules/
+.next/
+out/
+coverage/
+.cursor/
+
+*.tsbuildinfo
+next-env.d.ts
+.env*
+npm-debug.log*
+.DS_Store
+/public/sql-wasm.wasm
+/public/sql-wasm-browser.wasm
+desktop-dist/
+release/
+# electron-builder resources (keep icons)
+/build/**
+!/build/icon.ico
+!/build/icon.png

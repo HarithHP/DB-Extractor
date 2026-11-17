@@ -1,0 +1,184 @@
+/*
+ * Single theme source for the whole app.
+ * Every color, font size, control height, radius, and shadow used by the UI
+ * components resolves to a variable defined here. Change a value once and every
+ * Button, DataTable, Badge, Card, etc. updates across all pages.
+ */
+
+:root {
+  /* ---- Typography ---- */
+  /* Every rem-based size (spacing, text-sm, ...) scales with this. */
+  --font-size-root: 15px;
+  --font-sans-stack: ui-sans-serif, system-ui, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-mono-stack: ui-monospace, SFMono-Regular, "Cascadia Code", Consolas, "Liberation Mono", monospace;
+  --page-title-font-size: 1.375rem;
+  --section-title-font-size: 0.9375rem;
+  --stat-value-font-size: 1.0625rem;
+  --label-font-size: 0.8125rem;
+
+  /* ---- Buttons ---- */
+  --btn-font-size-sm: 0.75rem;
+  --btn-font-size-md: 0.8125rem;
+  --btn-font-size-lg: 0.875rem;
+  --btn-height-sm: 1.875rem;
+  --btn-height-md: 2.125rem;
+  --btn-height-lg: 2.5rem;
+  --btn-radius: 0.5rem;
+
+  /* ---- Tables ---- */
+  --table-font-size: 0.8125rem;
+  --table-head-font-size: 0.6875rem;
+  --table-head-height: 2.25rem;
+  --table-cell-px: 0.875rem;
+  --table-cell-py: 0.5rem;
+
+  /* ---- Form fields ---- */
+  --input-height: 2.125rem;
+  --field-font-size: 0.8125rem;
+  --field-px: 0.75rem;
+  --checkbox-size: 1rem;
+
+  /* ---- Badges / cards / shell ---- */
+  --badge-font-size: 0.6875rem;
+  --radius: 0.625rem;
+  --card-radius: 0.875rem;
+  --card-padding: 1.25rem;
+  --card-padding-mobile: 1rem;
+  --icon-tile-size: 2rem;
+  --topbar-height: 3.25rem;
+  --sidebar-width: 14.5rem;
+  --tabbar-height: 3.75rem;
+
+  /* ---- Motion ---- */
+  --theme-switch-duration: 600ms;
+
+  /* ---- Color palette (light) ---- */
+  --background: oklch(0.984 0.003 260);
+  --foreground: oklch(0.2 0.025 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.025 265);
+  --muted: oklch(0.962 0.006 260);
+  --muted-foreground: oklch(0.5 0.02 262);
+  --border: oklch(0.915 0.008 260);
+  --input: oklch(0.885 0.01 260);
+  --primary: oklch(0.52 0.2 268);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.955 0.01 262);
+  --secondary-foreground: oklch(0.26 0.03 265);
+  --accent: oklch(0.95 0.025 270);
+  --accent-foreground: oklch(0.36 0.12 268);
+  --destructive: oklch(0.575 0.215 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --success: oklch(0.6 0.15 155);
+  --success-foreground: oklch(0.99 0 0);
+  --warning: oklch(0.72 0.16 72);
+  --info: oklch(0.6 0.13 235);
+  --ring: oklch(0.52 0.2 268);
+
+  /* ---- Table surfaces ---- */
+  --table-header: oklch(0.972 0.005 260);
+  --table-row-hover: oklch(0.965 0.012 268);
+  --table-stripe: oklch(0.985 0.003 260);
+  --table-border: oklch(0.93 0.007 260);
+
+  /* ---- Elevation & decoration ---- */
+  --elevation-card: 0 1px 2px oklch(0.2 0.03 265 / 0.04), 0 4px 16px -4px oklch(0.2 0.03 265 / 0.08);
+  --elevation-raised: 0 2px 4px oklch(0.2 0.03 265 / 0.06), 0 16px 40px -12px oklch(0.2 0.03 265 / 0.18);
+  --gradient-primary: linear-gradient(180deg, oklch(0.58 0.2 268), oklch(0.5 0.21 270));
+  --gradient-brand: linear-gradient(135deg, oklch(0.58 0.2 268), oklch(0.6 0.17 300));
+  --app-backdrop: radial-gradient(1200px 600px at 100% -10%, oklch(0.52 0.2 268 / 0.07), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, oklch(0.6 0.17 300 / 0.05), transparent 60%);
+}
+
+.dark {
+  --background: oklch(0.155 0.016 265);
+  --foreground: oklch(0.95 0.006 260);
+  --card: oklch(0.195 0.019 265);
+  --card-foreground: oklch(0.95 0.006 260);
+  --muted: oklch(0.24 0.018 265);
+  --muted-foreground: oklch(0.7 0.02 262);
+  --border: oklch(0.29 0.02 265);
+  --input: oklch(0.33 0.022 265);
+  --primary: oklch(0.68 0.16 270);
+  --primary-foreground: oklch(0.15 0.02 265);
+  --secondary: oklch(0.26 0.02 265);
+  --secondary-foreground: oklch(0.94 0.006 260);
+  --accent: oklch(0.29 0.05 270);
+  --accent-foreground: oklch(0.92 0.04 270);
+  --destructive: oklch(0.64 0.2 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --success: oklch(0.72 0.15 155);
+  --success-foreground: oklch(0.15 0.02 265);
+  --warning: oklch(0.8 0.15 75);
+  --info: oklch(0.72 0.12 235);
+  --ring: oklch(0.68 0.16 270);
+
+  --table-header: oklch(0.215 0.02 265);
+  --table-row-hover: oklch(0.235 0.03 268);
+  --table-stripe: oklch(0.205 0.018 265);
+  --table-border: oklch(0.265 0.02 265);
+
+  --elevation-card: inset 0 1px 0 oklch(1 0 0 / 0.04), 0 1px 2px oklch(0 0 0 / 0.3), 0 8px 24px -8px oklch(0 0 0 / 0.45);
+  --elevation-raised: 0 2px 6px oklch(0 0 0 / 0.35), 0 20px 48px -12px oklch(0 0 0 / 0.6);
+  --gradient-primary: linear-gradient(180deg, oklch(0.72 0.15 270), oklch(0.64 0.17 270));
+  --gradient-brand: linear-gradient(135deg, oklch(0.68 0.16 270), oklch(0.7 0.15 305));
+  --app-backdrop: radial-gradient(1200px 600px at 100% -10%, oklch(0.68 0.16 270 / 0.1), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, oklch(0.7 0.15 305 / 0.07), transparent 60%);
+}
+
+/* Expose tokens as Tailwind utilities (bg-primary, text-btn-md, shadow-card, ...). */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-ring: var(--ring);
+  --color-table-header: var(--table-header);
+  --color-table-row-hover: var(--table-row-hover);
+  --color-table-stripe: var(--table-stripe);
+  --color-table-border: var(--table-border);
+
+  --text-btn-sm: var(--btn-font-size-sm);
+  --text-btn-md: var(--btn-font-size-md);
+  --text-btn-lg: var(--btn-font-size-lg);
+  --text-table: var(--table-font-size);
+  --text-table-head: var(--table-head-font-size);
+  --text-badge: var(--badge-font-size);
+  --text-field: var(--field-font-size);
+  --text-label: var(--label-font-size);
+  --text-page-title: var(--page-title-font-size);
+  --text-section-title: var(--section-title-font-size);
+  --text-stat: var(--stat-value-font-size);
+
+  --spacing-card: var(--card-padding);
+  --spacing-card-sm: var(--card-padding-mobile);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-card: var(--card-radius);
+
+  --shadow-card: var(--elevation-card);
+  --shadow-raised: var(--elevation-raised);
+
+  --font-sans: var(--font-sans-stack);
+  --font-mono: var(--font-mono-stack);
+}

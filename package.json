@@ -1,0 +1,112 @@
+{
+  "name": "hhp-db-extractor",
+  "version": "0.1.0",
+  "private": true,
+  "description": "HHP Database Extractor — local-first schema extraction",
+  "author": "HHP",
+  "main": "desktop-dist/main.js",
+  "scripts": {
+    "dev": "next dev -H 127.0.0.1 -p 9000",
+    "build": "next build",
+    "start": "next start -H 127.0.0.1 -p 9000",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "postinstall": "node scripts/copy-sql-wasm.mjs",
+    "desktop:icons": "node scripts/generate-icon.mjs",
+    "desktop:compile": "tsc -p tsconfig.desktop.json",
+    "desktop:prepare": "node scripts/prepare-standalone.mjs",
+    "desktop:dev": "node scripts/desktop-dev.mjs",
+    "desktop:build": "npm run desktop:icons && npm run build && npm run desktop:prepare && npm run desktop:compile && electron-builder --win"
+  },
+  "dependencies": {
+    "@radix-ui/react-checkbox": "^1.4.1",
+    "@radix-ui/react-dialog": "^1.3.1",
+    "@radix-ui/react-label": "^2.1.17",
+    "@radix-ui/react-slot": "^1.5.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "fflate": "^0.8.3",
+    "idb-keyval": "^6.3.0",
+    "jose": "^6.2.12",
+    "lucide-react": "^1.59.0",
+    "mysql2": "^3.24.6",
+    "next": "^16.4.2",
+    "next-themes": "^0.4.6",
+    "pg": "^8.23.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sql.js": "^1.15.1",
+    "tailwind-merge": "^3.7.0",
+    "tedious": "^20.3.8",
+    "zod": "^4.6.7",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.10",
+    "@electric-sql/pglite-socket": "^0.2.13",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.5",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/sql.js": "^1.4.11",
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.2",
+    "fake-indexeddb": "^6.2.6",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  },
+  "build": {
+    "appId": "com.hhp.dbextractor",
+    "productName": "HHP Database Extractor",
+    "copyright": "Copyright © HHP",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "desktop-dist/**/*",
+      "package.json",
+      "!node_modules/**",
+      "!**/node_modules/**"
+    ],
+    "extraResources": [
+      {
+        "from": ".next/standalone",
+        "to": "standalone",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "HHP Database Extractor Setup ${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "HHP Database Extractor",
+      "uninstallDisplayName": "HHP Database Extractor"
+    }
+  }
+}

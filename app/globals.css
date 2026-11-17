@@ -1,0 +1,114 @@
+@import "tailwindcss";
+@import "./theme.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    font-size: var(--font-size-root);
+    -webkit-tap-highlight-color: transparent;
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    background-color: var(--color-background);
+    background-image: var(--app-backdrop);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--color-primary) 25%, transparent);
+  }
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@keyframes hhp-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-fade-in {
+  animation: hhp-fade-in 0.25s ease-out both;
+}
+
+@keyframes hhp-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes hhp-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes hhp-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes hhp-icon-in {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.4);
+  }
+}
+
+.animate-icon-in {
+  animation: hhp-icon-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* ---- Theme switch (see lib/utils/theme-transition.ts) ---- */
+
+/* View Transitions: the new theme is revealed as a circle clip animated from JS. */
+html[data-theme-switching]::view-transition-old(root),
+html[data-theme-switching]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html[data-theme-switching]::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* Freeze per-element transitions so the snapshot shows the final colors. */
+html[data-theme-switching] *,
+html[data-theme-switching] *::before,
+html[data-theme-switching] *::after {
+  transition: none !important;
+}
+
+/* Fallback for browsers without View Transitions: a uniform color cross-fade. */
+html.theme-fading,
+html.theme-fading *,
+html.theme-fading *::before,
+html.theme-fading *::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow !important;
+  transition-duration: calc(var(--theme-switch-duration) * 0.6) !important;
+  transition-timing-function: ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-icon-in {
+    animation: none;
+  }
+}

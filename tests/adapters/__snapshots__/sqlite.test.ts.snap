@@ -1,0 +1,187 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sqliteAdapter > extracts tables, columns, keys, indexes, views, triggers + per-object files deterministically 1`] = `
+{
+  "01_tables.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Tables
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+DROP TABLE IF EXISTS "customers";
+CREATE TABLE IF NOT EXISTS customers (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT NOT NULL UNIQUE,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    );
+
+DROP TABLE IF EXISTS "orders";
+CREATE TABLE IF NOT EXISTS orders (
+      id INTEGER PRIMARY KEY,
+      customer_id INTEGER NOT NULL,
+      total_cents INTEGER NOT NULL DEFAULT 0,
+      FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+    );
+",
+  "02_table_columns.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Table columns
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+-- Table: "customers"
+  "id" INTEGER PRIMARY KEY (1),
+  "email" TEXT NOT NULL,
+  "created_at" TEXT DEFAULT CURRENT_TIMESTAMP;
+
+-- Table: "orders"
+  "id" INTEGER PRIMARY KEY (1),
+  "customer_id" INTEGER NOT NULL,
+  "total_cents" INTEGER NOT NULL DEFAULT 0;
+",
+  "03_primary_keys.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Primary keys
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+-- Table "customers" PRIMARY KEY ("id");
+
+-- Table "orders" PRIMARY KEY ("id");
+",
+  "04_foreign_keys.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Foreign keys
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+-- Table "orders": FOREIGN KEY ("customer_id") REFERENCES "customers" ("id") ON UPDATE NO ACTION ON DELETE CASCADE;
+",
+  "05_indexes.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Indexes
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+DROP INDEX IF EXISTS "idx_orders_customer";
+CREATE INDEX IF NOT EXISTS idx_orders_customer ON orders(customer_id);
+",
+  "07_views.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Views
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+DROP VIEW IF EXISTS "v_customer_orders";
+CREATE VIEW IF NOT EXISTS v_customer_orders AS
+      SELECT c.id AS customer_id, c.email, COUNT(o.id) AS order_count
+        FROM customers c
+        LEFT JOIN orders o ON o.customer_id = c.id
+       GROUP BY c.id, c.email;
+",
+  "10_triggers.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Triggers
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+DROP TRIGGER IF EXISTS "trg_orders_nonnegative";
+CREATE TRIGGER IF NOT EXISTS trg_orders_nonnegative
+    BEFORE INSERT ON orders
+    BEGIN
+      SELECT CASE WHEN NEW.total_cents < 0 THEN RAISE(ABORT, 'negative total') END;
+    END;
+",
+  "objects/columns/main.customers.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Table columns
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+-- Table: "customers"
+  "id" INTEGER PRIMARY KEY (1),
+  "email" TEXT NOT NULL,
+  "created_at" TEXT DEFAULT CURRENT_TIMESTAMP;
+",
+  "objects/columns/main.orders.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Table columns
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+-- Table: "orders"
+  "id" INTEGER PRIMARY KEY (1),
+  "customer_id" INTEGER NOT NULL,
+  "total_cents" INTEGER NOT NULL DEFAULT 0;
+",
+  "objects/foreign_keys/main.orders.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Foreign keys
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+-- Table "orders": FOREIGN KEY ("customer_id") REFERENCES "customers" ("id") ON UPDATE NO ACTION ON DELETE CASCADE;
+",
+  "objects/indexes/main.idx_orders_customer.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Indexes
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+DROP INDEX IF EXISTS "idx_orders_customer";
+CREATE INDEX IF NOT EXISTS idx_orders_customer ON orders(customer_id);
+",
+  "objects/primary_keys/main.customers.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Primary keys
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+-- Table "customers" PRIMARY KEY ("id");
+",
+  "objects/primary_keys/main.orders.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Primary keys
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+-- Table "orders" PRIMARY KEY ("id");
+",
+  "objects/tables/main.customers.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Tables
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+DROP TABLE IF EXISTS "customers";
+CREATE TABLE IF NOT EXISTS customers (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT NOT NULL UNIQUE,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    );
+",
+  "objects/tables/main.orders.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Tables
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+DROP TABLE IF EXISTS "orders";
+CREATE TABLE IF NOT EXISTS orders (
+      id INTEGER PRIMARY KEY,
+      customer_id INTEGER NOT NULL,
+      total_cents INTEGER NOT NULL DEFAULT 0,
+      FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+    );
+",
+  "objects/triggers/main.trg_orders_nonnegative.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Triggers
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+DROP TRIGGER IF EXISTS "trg_orders_nonnegative";
+CREATE TRIGGER IF NOT EXISTS trg_orders_nonnegative
+    BEFORE INSERT ON orders
+    BEGIN
+      SELECT CASE WHEN NEW.total_cents < 0 THEN RAISE(ABORT, 'negative total') END;
+    END;
+",
+  "objects/views/main.v_customer_orders.sql": "-- HHP Database Extractor
+-- Engine: SQLite | Database: shop.db | Category: Views
+-- Attached database: shop.db
+PRAGMA foreign_keys = ON;
+
+DROP VIEW IF EXISTS "v_customer_orders";
+CREATE VIEW IF NOT EXISTS v_customer_orders AS
+      SELECT c.id AS customer_id, c.email, COUNT(o.id) AS order_count
+        FROM customers c
+        LEFT JOIN orders o ON o.customer_id = c.id
+       GROUP BY c.id, c.email;
+",
+}
+`;
